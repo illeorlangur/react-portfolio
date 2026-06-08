@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Notification from './Notification';
 
 export default function Contacts() {
   const [name, setName] = useState('');
@@ -64,11 +65,8 @@ export default function Contacts() {
         <button type="submit">Отправить</button>
       </form>
 
-      {showNotification && (
-        <div className="notification">
-          Сообщение отправлено!
-        </div>
-      )}
+      {showNotification && <Notification message="Сообщение отправлено!" />}
+
     </section>
   );
 }
