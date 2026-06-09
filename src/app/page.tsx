@@ -3,11 +3,18 @@
 import { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import About from '@/components/About';
-import Skills, { categories } from '@/components/Skills';
+import Skills from '@/components/Skills';
 import FilterBar from '@/components/FilterBar';
 import Projects from '@/components/Projects';
 import Contacts from '@/components/Contacts';
 import Footer from '@/components/Footer';
+
+const categories = [
+  { key: 'all', label: 'Все' },
+  { key: 'languages', label: 'Языки' },
+  { key: 'frameworks', label: 'Фреймворки' },
+  { key: 'tools', label: 'Инструменты' },
+];
 
 export default function Home() {
   const [filter, setFilter] = useState('all');

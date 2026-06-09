@@ -13,15 +13,6 @@ const skillsData = [
   { id: 6, title: 'API', desc: 'REST, GraphQL', category: 'frameworks' },
 ];
 
-const categories = [
-  { key: 'all', label: 'Все' },
-  { key: 'languages', label: 'Языки' },
-  { key: 'frameworks', label: 'Фреймворки' },
-  { key: 'tools', label: 'Инструменты' },
-];
-
-export { categories };
-
 export default function Skills({ filter }: SkillsProps) {
   const filteredSkills = filter === 'all'
     ? skillsData

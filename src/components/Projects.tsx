@@ -16,20 +16,28 @@ export default function Projects() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch('https://api.github.com/users/illeorlangur/repos?sort=updated')
-      .then(res => {
-        if (!res.ok) throw new Error('Не удалось загрузить проекты');
-        return res.json();
-      })
-      .then(data => {
-        setRepos(data);
-        setLoading(false);
-      })
-      .catch(err => {
-        setError(err.message);
-        setLoading(false);
-      });
-  }, []);
+  const controller = new AbortController();
+
+  fetch('https://api.github.com/users/illeorlangur/repos?sort=updated', {
+    signal: controller.signal
+  })
+    .then(res => {
+      if (res.status === 403) throw new Error('Лимит запросов GitHub. Подожди минуту.');
+      if (!res.ok) throw new Error('Не удалось загрузить проекты');
+      return res.json();
+    })
+    .then(data => {
+      setRepos(data);
+      setLoading(false);
+    })
+    .catch(err => {
+      if (err.name === 'AbortError') return;
+      setError(err.message);
+      setLoading(false);
+    });
+
+    return () => controller.abort();
+    }, []);
 
   if (loading) return <section id="projects"><h2>Проекты</h2><p>Загрузка...</p></section>;
   if (error) return <section id="projects"><h2>Проекты</h2><p>Ошибка: {error}</p></section>;
