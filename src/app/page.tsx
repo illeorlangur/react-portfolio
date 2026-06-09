@@ -25,12 +25,12 @@ export default function Home() {
       <main className="container">
         <About />
         <section id="skills-section">
-          <Skills filter={filter} />
-          <FilterBar
-            categories={categories}
-            currentFilter={filter}
-            onFilterChange={setFilter}
-          />
+        <FilterBar
+        categories={categories}
+        currentFilter={filter}
+        onFilterChange={setFilter}
+        />
+        <Skills filter={filter} />
         </section>
         <Projects />
         <Contacts />
