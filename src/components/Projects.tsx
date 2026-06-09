@@ -3,7 +3,15 @@
 import { useState, useEffect } from 'react';
 
 export default function Projects() {
-  const [repos, setRepos] = useState([]);
+  type Repo = {
+  id: number;
+  name: string;
+  description: string | null;
+  language: string | null;
+  html_url: string;
+  };
+
+  const [repos, setRepos] = useState<Repo[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
