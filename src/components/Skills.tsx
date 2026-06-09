@@ -1,7 +1,8 @@
-'use client';  // ← ОБЯЗАТЕЛЬНО для компонентов с useState!
-
-import { useState } from 'react';
 import SkillCard from './SkillCard';
+
+type SkillsProps = {
+  filter: string;
+};
 
 const skillsData = [
   { id: 1, title: 'Программирование', desc: 'Python, JavaScript, Java', category: 'languages' },
@@ -19,9 +20,9 @@ const categories = [
   { key: 'tools', label: 'Инструменты' },
 ];
 
-export default function Skills() {
-  const [filter, setFilter] = useState('all');
+export { categories };
 
+export default function Skills({ filter }: SkillsProps) {
   const filteredSkills = filter === 'all'
     ? skillsData
     : skillsData.filter(skill => skill.category === filter);
@@ -29,19 +30,6 @@ export default function Skills() {
   return (
     <section id="skills">
       <h2>Навыки</h2>
-
-      <div className="filter-buttons">
-        {categories.map(cat => (
-          <button
-            key={cat.key}
-            className={`filter-btn ${filter === cat.key ? 'active' : ''}`}
-            onClick={() => setFilter(cat.key)}
-          >
-            {cat.label}
-          </button>
-        ))}
-      </div>
-
       <div className="skills-grid">
         {filteredSkills.map(skill => (
           <SkillCard
