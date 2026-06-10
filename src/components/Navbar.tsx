@@ -1,6 +1,7 @@
 'use client';
 
 import { useTheme } from '@/context/ThemeContext';
+import Link from 'next/link';
 
 export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
@@ -14,9 +15,10 @@ export default function Navbar() {
         </div>
         <nav>
           <ul>
-            <li><a href="#about">Обо мне</a></li>
-            <li><a href="#skills">Навыки</a></li>
-            <li><a href="#contacts">Контакты</a></li>
+            <Link href="/about">Обо мне</Link>
+            {/* <li><Link href="#about">Обо мне</Link></li> */}
+            <li><Link href="#skills">Навыки</Link></li>
+            <li><Link href="#contacts">Контакты</Link></li>
           </ul>
           <button className="theme-toggle" onClick={toggleTheme}>
             {theme === 'light' ? '🌙' : '☀️'}

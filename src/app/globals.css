@@ -367,3 +367,18 @@ footer {
   border-color: white;
   background: rgba(255, 255, 255, 0.1);
 }
+
+.back-btn {
+  background: none;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+.back-btn:hover {
+  background: var(--accent);
+  color: white;
+}
