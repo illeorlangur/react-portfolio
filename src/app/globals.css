@@ -10,6 +10,9 @@
   --accent-hover: #06f3cc;
   --nav-bg: #0f3460;
   --shadow: rgba(0, 0, 0, 0.3);
+  --footer-bg: #0f3460;       /* ← NEW: тёмный, как навбар */
+  --button-bg: #0d7377;       /* ← NEW: приглушённый бирюзовый */
+  --button-hover: #12bebe;    /* ← NEW: акцент при hover */
 }
 
 [data-theme="light"] {
@@ -22,6 +25,9 @@
   --accent-hover: #06f3cc;
   --nav-bg: #169c9c;
   --shadow: rgba(0, 0, 0, 0.1);
+  --footer-bg: #169c9c;       /* ← NEW: как было */
+  --button-bg: #30af9a;       /* ← NEW: как было */
+  --button-hover: #06f3cc;    /* ← NEW: как было */
 }
 
 :root {
@@ -154,7 +160,7 @@ textarea:focus {
 
 button {
   padding: 12px 24px;
-  background-color: #30af9a;
+  background-color: var(--button-bg);
   color: white;
   border: none;
   border-radius: 6px;
@@ -165,12 +171,12 @@ button {
 }
 
 button:hover {
-  background-color: #06f3cc;
+  background-color: var(--button-hover);
 }
 
 footer {
   height: auto;
-  background-color: #169c9c;
+  background-color: var(--footer-bg);
   color: white;
   text-align: center;
   padding: 20px;
