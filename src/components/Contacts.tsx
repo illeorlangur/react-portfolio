@@ -5,7 +5,7 @@ import Notification from './Notification';
 
 export default function Contacts() {
   const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState(''); 
   const [message, setMessage] = useState('');
   const [showNotification, setShowNotification] = useState(false);
   const nameRef = useRef<HTMLInputElement>(null);
