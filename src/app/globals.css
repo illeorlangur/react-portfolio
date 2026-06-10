@@ -63,8 +63,8 @@ body {
   min-height: 100vh;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   line-height: 1.6;
-  color: #333;
-  background-color: #f5fafa;
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
 }
 
 main {
@@ -93,7 +93,7 @@ nav ul {
 
 nav a {
   text-decoration: none;
-  color: #ccc;
+  color: var(--text-secondary);
   font-weight: 500;
   transition: color 0.3s;
 }
@@ -112,7 +112,7 @@ section {
 
 section h2 {
   margin-bottom: 15px;
-  color: #12bebe;
+  color: var(--accent);
 }
 
 img {
@@ -132,7 +132,7 @@ form {
 
 label {
   font-weight: 600;
-  color: #12bebe;
+  color: var(--accent);
 }
 
 input,
@@ -313,9 +313,9 @@ footer {
 
 .project-card p {
   font-size: 0.9rem;
-  color: #555;
+  color: var(--text-secondary);
   margin-bottom: 10px;
-}
+  }
 
 .project-meta {
   display: flex;

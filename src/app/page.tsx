@@ -9,6 +9,7 @@ import FilterBar from '@/components/FilterBar';
 import Projects from '@/components/Projects';
 import Contacts from '@/components/Contacts';
 import Footer from '@/components/Footer';
+import BodyThemeSync from '@/context/BodyThemeSync';
 
 const categories = [
   { key: 'all', label: 'Все' },
@@ -22,6 +23,7 @@ export default function Home() {
 
   return (
     <ThemeProvider>
+      <BodyThemeSync />
       <Navbar />
       <main className="container">
         <About />
