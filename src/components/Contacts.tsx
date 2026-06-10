@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Notification from './Notification';
 
 export default function Contacts() {
@@ -8,22 +8,19 @@ export default function Contacts() {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [showNotification, setShowNotification] = useState(false);
+  const nameRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    nameRef.current?.focus();
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-    // Валидация
-    if (!name.trim() || !email.trim() || !message.trim()) {
-      return; // Пока простая — просто не отправляем
-    }
+    if (!name.trim() || !email.trim() || !message.trim()) return;
 
     console.log('Форма валидна!', { name, email, message });
-
-    // Показать уведомление
     setShowNotification(true);
     setTimeout(() => setShowNotification(false), 3000);
-
-    // Очистить форму
     setName('');
     setEmail('');
     setMessage('');
@@ -37,10 +34,11 @@ export default function Contacts() {
       <form onSubmit={handleSubmit}>
         <label htmlFor="name">Имя:</label>
         <input
+          ref={nameRef}
           type="text"
           id="name"
-          value={name}              // ← контролируемый инпут
-          onChange={(e) => setName(e.target.value)}  // ← обновляет state
+          value={name}
+          onChange={(e) => setName(e.target.value)}
           required
         />
 
@@ -66,7 +64,6 @@ export default function Contacts() {
       </form>
 
       {showNotification && <Notification message="Сообщение отправлено!" />}
-
     </section>
   );
 }

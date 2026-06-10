@@ -1,5 +1,29 @@
 @import "tailwindcss";
 
+[data-theme="dark"] {
+  --bg-primary: #1a1a2e;
+  --bg-secondary: #16213e;
+  --bg-card: #0f3460;
+  --text-primary: #e0e0e0;
+  --text-secondary: #a0a0a0;
+  --accent: #12bebe;
+  --accent-hover: #06f3cc;
+  --nav-bg: #0f3460;
+  --shadow: rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="light"] {
+  --bg-primary: #f5fafa;
+  --bg-secondary: #ffffff;
+  --bg-card: #f0f5f5;
+  --text-primary: #333333;
+  --text-secondary: #555555;
+  --accent: #12bebe;
+  --accent-hover: #06f3cc;
+  --nav-bg: #169c9c;
+  --shadow: rgba(0, 0, 0, 0.1);
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -20,8 +44,8 @@
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--bg-primary);
+  color: var(--text-primary);
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -54,7 +78,7 @@ main {
 }
 
 header {
-  background-color: #169c9c;
+  background-color: var(--nav-bg);
   color: white;
   padding: 30px 20px;
   text-align: center;
@@ -79,9 +103,9 @@ nav a:hover {
 }
 
 section {
-  background-color: white;
+  background-color: var(--bg-secondary);
   border-radius: 16px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px var(--shadow);
   padding: 30px;
   margin: 30px 0;
 }
@@ -182,7 +206,7 @@ footer {
 }
 
 .skill-card {
-  background: #f0f5f5;
+  background: var(--bg-card);
   padding: 15px;
   border-radius: 8px;
   text-align: center;
@@ -267,7 +291,7 @@ footer {
 }
 
 .project-card {
-  background: #f0f5f5;
+  background: var(--bg-card);
   padding: 15px;
   border-radius: 8px;
   overflow-wrap: break-word;
@@ -298,7 +322,7 @@ footer {
   justify-content: space-between;
   align-items: center;
   font-size: 0.85rem;
-}
+   }
 
 .project-lang {
   background: #12bebe;
@@ -316,4 +340,24 @@ footer {
 
 .project-meta a:hover {
   text-decoration: underline;
+}
+
+.theme-toggle {
+  background: none;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 0;
+  transition: border-color 0.3s;
+}
+
+.theme-toggle:hover {
+  border-color: white;
+  background: rgba(255, 255, 255, 0.1);
 }

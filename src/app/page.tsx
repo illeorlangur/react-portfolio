@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { ThemeProvider } from '@/context/ThemeContext';
 import Navbar from '@/components/Navbar';
 import About from '@/components/About';
 import Skills from '@/components/Skills';
@@ -20,22 +21,22 @@ export default function Home() {
   const [filter, setFilter] = useState('all');
 
   return (
-    <>
+    <ThemeProvider>
       <Navbar />
       <main className="container">
         <About />
         <section id="skills-section">
-        <FilterBar
-        categories={categories}
-        currentFilter={filter}
-        onFilterChange={setFilter}
-        />
-        <Skills filter={filter} />
+          <FilterBar
+            categories={categories}
+            currentFilter={filter}
+            onFilterChange={setFilter}
+          />
+          <Skills filter={filter} />
         </section>
         <Projects />
         <Contacts />
       </main>
       <Footer />
-    </>
+    </ThemeProvider>
   );
 }
