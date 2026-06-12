@@ -1,8 +1,7 @@
+import { useMemo } from 'react';
 import SkillCard from './SkillCard';
 
-type SkillsProps = {
-  filter: string;
-};
+type SkillsProps = { filter: string; };
 
 const skillsData = [
   { id: 1, title: 'Программирование', desc: 'Python, JavaScript, Java', category: 'languages' },
@@ -14,22 +13,16 @@ const skillsData = [
 ];
 
 export default function Skills({ filter }: SkillsProps) {
-  const filteredSkills = filter === 'all'
-    ? skillsData
-    : skillsData.filter(skill => skill.category === filter);
+  const filtered = useMemo(() => {
+    if (filter === 'all') return skillsData;
+    return skillsData.filter(s => s.category === filter);
+  }, [filter]);
 
   return (
-    <section id="skills">
-      <h2>Навыки</h2>
-      <div className="skills-grid">
-        {filteredSkills.map(skill => (
-          <SkillCard
-            key={skill.id}
-            title={skill.title}
-            description={skill.desc}
-          />
-        ))}
-      </div>
-    </section>
+    <div className="skills-grid">
+      {filtered.map(skill => (
+        <SkillCard key={skill.id} title={skill.title} desc={skill.desc} />
+      ))}
+    </div>
   );
 }

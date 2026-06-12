@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { ThemeProvider } from '@/context/ThemeContext';
 import Navbar from '@/components/Navbar';
 import About from '@/components/About';
@@ -21,6 +21,11 @@ const categories = [
 export default function Home() {
   const [filter, setFilter] = useState('all');
 
+  const handleFilter = useCallback((key: string) => {
+    setFilter(key);
+    console.log('Фильтр изменён:', key);
+  }, []);
+
   return (
     <ThemeProvider>
       <BodyThemeSync />
@@ -31,7 +36,7 @@ export default function Home() {
           <FilterBar
             categories={categories}
             currentFilter={filter}
-            onFilterChange={setFilter}
+            onFilterChange={handleFilter}
           />
           <Skills filter={filter} />
         </section>
