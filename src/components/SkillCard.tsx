@@ -1,4 +1,4 @@
-// Это ДИНАМИЧЕСКИЙ компонент — принимает данные через props
+
 type SkillCardProps = {
   title: string;
   description: string;

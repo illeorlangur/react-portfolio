@@ -1,27 +1,32 @@
 import { useMemo } from 'react';
 import SkillCard from './SkillCard';
+import useFetch from '@/hooks/useFetch';
+
+type Skill = {
+  id: number;
+  title: string;
+  desc: string;
+  category: string;
+};
 
 type SkillsProps = { filter: string; };
 
-const skillsData = [
-  { id: 1, title: 'Программирование', desc: 'Python, JavaScript, Java', category: 'languages' },
-  { id: 2, title: 'Веб-разработка', desc: 'React, Django', category: 'frameworks' },
-  { id: 3, title: 'Системное администрирование', desc: 'Linux, Docker', category: 'tools' },
-  { id: 4, title: 'Базы данных', desc: 'MySQL, MongoDB', category: 'tools' },
-  { id: 5, title: 'Контроль версий', desc: 'Git', category: 'tools' },
-  { id: 6, title: 'API', desc: 'REST, GraphQL', category: 'frameworks' },
-];
-
 export default function Skills({ filter }: SkillsProps) {
+  const { data: skills, loading, error } = useFetch<Skill[]>('http://localhost:3001/api/skills');
+
   const filtered = useMemo(() => {
-    if (filter === 'all') return skillsData;
-    return skillsData.filter(s => s.category === filter);
-  }, [filter]);
+    if (!skills) return [];
+    if (filter === 'all') return skills;
+    return skills.filter(s => s.category === filter);
+  }, [skills, filter]);
+
+  if (loading) return <p>Загрузка навыков...</p>;
+  if (error) return <p>Ошибка: {error}</p>;
 
   return (
     <div className="skills-grid">
       {filtered.map(skill => (
-        <SkillCard key={skill.id} title={skill.title} desc={skill.desc} />
+        <SkillCard key={skill.id} title={skill.title} description={skill.desc} />
       ))}
     </div>
   );
