@@ -382,3 +382,36 @@ footer {
   background: var(--accent);
   color: white;
 }
+
+.add-skill-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  background: var(--bg-card);
+  border-radius: 12px;
+}
+
+.add-skill-form h3 {
+  color: var(--accent);
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.add-skill-form select {
+  padding: 10px 12px;
+  border: 1px solid var(--text-secondary);
+  border-radius: 6px;
+  font-size: 16px;
+  font-family: inherit;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.form-message {
+  text-align: center;
+  color: var(--accent);
+  font-weight: 600;
+}
