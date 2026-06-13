@@ -52,6 +52,32 @@ app.post('/api/skills', (req, res) => {
 
 // Запуск сервера
 const PORT = 3001;
+
+// DELETE /api/skills/:id — удалить навык
+app.delete('/api/skills/:id', (req, res) => {
+  const id = Number(req.params.id);
+  const index = skills.findIndex(s => s.id === id);
+  if (index === -1) {
+    return res.status(404).json({ error: 'Навык не найден' });
+  }
+  skills.splice(index, 1);
+  res.json({ message: 'Навык удалён' });
+});
+
+// PUT /api/skills/:id — обновить навык
+app.put('/api/skills/:id', (req, res) => {
+  const id = Number(req.params.id);
+  const { title, desc, category } = req.body;
+  const skill = skills.find(s => s.id === id);
+  if (!skill) {
+    return res.status(404).json({ error: 'Навык не найден' });
+  }
+  if (title) skill.title = title;
+  if (desc) skill.desc = desc;
+  if (category) skill.category = category;
+  res.json(skill);
+});
+
 app.listen(PORT, () => {
   console.log(`🚀 Сервер запущен на http://localhost:${PORT}`);
 });

@@ -13,9 +13,9 @@ type Skill = {
 type SkillsProps = { filter: string; };
 
 export default function Skills({ filter }: SkillsProps) {
-  const [refreshKey, setRefreshKey] = useState(0);       // ← Ключ обновления
+  const [refreshKey, setRefreshKey] = useState(0);
   const { data: skills, loading, error } = useFetch<Skill[]>(
-    `http://localhost:3001/api/skills?t=${refreshKey}`    // ← URL меняется = новый запрос
+    `http://localhost:3001/api/skills?t=${refreshKey}`
   );
 
   const filtered = useMemo(() => {
@@ -25,7 +25,19 @@ export default function Skills({ filter }: SkillsProps) {
   }, [skills, filter]);
 
   const handleSkillAdded = () => {
-    setRefreshKey(prev => prev + 1);   // ← Меняем ключ → useFetch перезапускается
+    setRefreshKey(prev => prev + 1);
+  };
+
+  const handleDelete = async (id: number) => {
+    try {
+      const res = await fetch(`http://localhost:3001/api/skills/${id}`, {
+        method: 'DELETE',
+      });
+      if (!res.ok) throw new Error('Ошибка удаления');
+      setRefreshKey(prev => prev + 1);   // Обновить список
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   if (loading) return <p>Загрузка навыков...</p>;
@@ -36,7 +48,13 @@ export default function Skills({ filter }: SkillsProps) {
       <AddSkillForm onSkillAdded={handleSkillAdded} />
       <div className="skills-grid">
         {filtered.map(skill => (
-          <SkillCard key={skill.id} title={skill.title} description={skill.desc} />
+          <SkillCard
+            key={skill.id}
+            title={skill.title}
+            description={skill.desc}
+            skillId={skill.id}
+            onDelete={handleDelete}
+          />
         ))}
       </div>
     </div>

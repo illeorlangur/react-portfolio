@@ -212,6 +212,7 @@ footer {
 }
 
 .skill-card {
+  position: relative;
   background: var(--bg-card);
   padding: 15px;
   border-radius: 8px;
@@ -414,4 +415,29 @@ footer {
   text-align: center;
   color: var(--accent);
   font-weight: 600;
+}
+
+.delete-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: none;
+  border: 1px solid rgba(255, 0, 0, 0.3);
+  color: rgba(255, 0, 0, 0.5);
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 12px;
+  padding: 0;
+  transition: all 0.2s;
+}
+
+.delete-btn:hover {
+  background: rgba(255, 0, 0, 0.1);
+  border-color: red;
+  color: red;
 }
