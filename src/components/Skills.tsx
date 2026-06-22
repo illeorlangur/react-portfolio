@@ -4,7 +4,7 @@ import AddSkillForm from './AddSkillForm';
 import useFetch from '@/hooks/useFetch';
 
 type Skill = {
-  id: number;
+  _id: string;
   title: string;
   desc: string;
   category: string;
@@ -28,7 +28,7 @@ export default function Skills({ filter }: SkillsProps) {
     setRefreshKey(prev => prev + 1);
   };
 
-  const handleDelete = async (id: number) => {
+  const handleDelete = async (id: string) => {
     try {
       const res = await fetch(`http://localhost:3001/api/skills/${id}`, {
         method: 'DELETE',
@@ -49,10 +49,10 @@ export default function Skills({ filter }: SkillsProps) {
       <div className="skills-grid">
         {filtered.map(skill => (
           <SkillCard
-            key={skill.id}
+            key={skill._id}
             title={skill.title}
             description={skill.desc}
-            skillId={skill.id}
+            skillId={skill._id}
             onDelete={handleDelete}
           />
         ))}

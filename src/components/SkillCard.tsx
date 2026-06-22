@@ -1,8 +1,8 @@
 type SkillCardProps = {
   title: string;
   description: string;
-  skillId: number;
-  onDelete: (id: number) => void;
+  skillId: string;
+  onDelete: (id: string) => void;
 };
 
 export default function SkillCard({ title, description, skillId, onDelete }: SkillCardProps) {
