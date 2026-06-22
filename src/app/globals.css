@@ -441,3 +441,84 @@ footer {
   border-color: red;
   color: red;
 }
+
+.skill-card.editing {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.edit-input {
+  padding: 6px 8px;
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: inherit;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-width: 0;
+}
+
+.edit-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.save-btn {
+  background: var(--button-bg);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0;
+}
+
+.save-btn:hover {
+  background: var(--button-hover);
+}
+
+.cancel-btn {
+  background: none;
+  border: 1px solid rgba(255, 0, 0, 0.3);
+  color: rgba(255, 0, 0, 0.5);
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  font-size: 12px;
+  padding: 0;
+}
+
+.cancel-btn:hover {
+  background: rgba(255, 0, 0, 0.1);
+  border-color: red;
+  color: red;
+}
+
+.edit-btn {
+  position: absolute;
+  top: 8px;
+  right: 40px;
+  background: none;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 11px;
+  padding: 0;
+  transition: all 0.2s;
+}
+
+.edit-btn:hover {
+  background: var(--accent);
+  color: white;
+}

@@ -24,17 +24,28 @@ export default function Skills({ filter }: SkillsProps) {
     return skills.filter(s => s.category === filter);
   }, [skills, filter]);
 
-  const handleSkillAdded = () => {
-    setRefreshKey(prev => prev + 1);
-  };
-
+  const handleSkillAdded = () => setRefreshKey(prev => prev + 1);
   const handleDelete = async (id: string) => {
     try {
       const res = await fetch(`http://localhost:3001/api/skills/${id}`, {
         method: 'DELETE',
       });
       if (!res.ok) throw new Error('Ошибка удаления');
-      setRefreshKey(prev => prev + 1);   // Обновить список
+      setRefreshKey(prev => prev + 1);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleEdit = async (id: string, updates: { title: string; desc: string }) => {
+    try {
+      const res = await fetch(`http://localhost:3001/api/skills/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updates),
+      });
+      if (!res.ok) throw new Error('Ошибка обновления');
+      setRefreshKey(prev => prev + 1);
     } catch (err) {
       console.error(err);
     }
@@ -54,6 +65,7 @@ export default function Skills({ filter }: SkillsProps) {
             description={skill.desc}
             skillId={skill._id}
             onDelete={handleDelete}
+            onEdit={handleEdit}
           />
         ))}
       </div>
