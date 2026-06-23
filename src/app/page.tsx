@@ -10,6 +10,7 @@ import Projects from '@/components/Projects';
 import Contacts from '@/components/Contacts';
 import Footer from '@/components/Footer';
 import BodyThemeSync from '@/context/BodyThemeSync';
+import { AuthProvider } from '@/context/AuthContext';
 
 const categories = [
   { key: 'all', label: 'Все' },
@@ -27,6 +28,7 @@ export default function Home() {
   }, []);
 
   return (
+    <AuthProvider>
     <ThemeProvider>
       <BodyThemeSync />
       <Navbar />
@@ -45,5 +47,6 @@ export default function Home() {
       </main>
       <Footer />
     </ThemeProvider>
+    </AuthProvider>
   );
 }

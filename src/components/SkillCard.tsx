@@ -8,9 +8,10 @@ type SkillCardProps = {
   skillId: string;
   onDelete: (id: string) => void;
   onEdit: (id: string, updates: { title: string; desc: string }) => Promise<void>;
+  canEdit: boolean;                    // ← НОВОЕ
 };
 
-export default function SkillCard({ title, description, skillId, onDelete, onEdit }: SkillCardProps) {
+export default function SkillCard({ title, description, skillId, onDelete, onEdit, canEdit }: SkillCardProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [editTitle, setEditTitle] = useState(title);
   const [editDesc, setEditDesc] = useState(description);
@@ -51,9 +52,7 @@ export default function SkillCard({ title, description, skillId, onDelete, onEdi
           <button className="save-btn" onClick={handleSave} disabled={saving}>
             {saving ? '...' : '✓'}
           </button>
-          <button className="cancel-btn" onClick={handleCancel}>
-            ✕
-          </button>
+          <button className="cancel-btn" onClick={handleCancel}>✕</button>
         </div>
       </div>
     );
@@ -63,18 +62,12 @@ export default function SkillCard({ title, description, skillId, onDelete, onEdi
     <div className="skill-card">
       <h3>{title}</h3>
       <p>{description}</p>
-      <button
-        className="edit-btn"
-        onClick={() => setIsEditing(true)}
-      >
-        ✏️
-      </button>
-      <button
-        className="delete-btn"
-        onClick={() => onDelete(skillId)}
-      >
-        ✕
-      </button>
+      {canEdit && (
+        <>
+          <button className="edit-btn" onClick={() => setIsEditing(true)}>✏️</button>
+          <button className="delete-btn" onClick={() => onDelete(skillId)}>✕</button>
+        </>
+      )}
     </div>
   );
 }
