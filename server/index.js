@@ -2,29 +2,26 @@ import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import 'dotenv/config';
+import authRouter from './routes/auth.js';
+import { authMiddleware } from './middleware/auth.js';
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-// --- Подключение к MongoDB ---
-
-const MONGO_URI=process.env.MONGO_URI;
-
+const MONGO_URI = process.env.MONGO_URI;
 mongoose.connect(MONGO_URI)
   .then(() => console.log('✅ MongoDB подключена'))
   .catch(err => console.error('❌ Ошибка MongoDB:', err.message));
 
-// --- Схема и Модель ---
+// --- Модели ---
 const skillSchema = new mongoose.Schema({
   title: { type: String, required: true },
   desc: { type: String, required: true },
   category: { type: String, required: true },
 });
-
 const Skill = mongoose.model('Skill', skillSchema);
 
-// --- Начальные данные (заполняются один раз) ---
 const seedSkills = [
   { title: 'Программирование', desc: 'Python, JavaScript, Java', category: 'languages' },
   { title: 'Веб-разработка', desc: 'React, Django', category: 'frameworks' },
@@ -34,16 +31,16 @@ const seedSkills = [
   { title: 'API', desc: 'REST, GraphQL', category: 'frameworks' },
 ];
 
-// Заполнить БД если пустая
 Skill.countDocuments().then(count => {
   if (count === 0) {
     Skill.insertMany(seedSkills).then(() => console.log('📦 Начальные данные добавлены'));
   }
 });
 
-// --- Маршруты API ---
+// --- Auth routes (публичные) ---
+app.use('/api/auth', authRouter);
 
-// GET /api/skills
+// --- Public routes ---
 app.get('/api/skills', async (req, res) => {
   try {
     const skills = await Skill.find();
@@ -53,7 +50,6 @@ app.get('/api/skills', async (req, res) => {
   }
 });
 
-// GET /api/skills/:id
 app.get('/api/skills/:id', async (req, res) => {
   try {
     const skill = await Skill.findById(req.params.id);
@@ -64,8 +60,8 @@ app.get('/api/skills/:id', async (req, res) => {
   }
 });
 
-// POST /api/skills
-app.post('/api/skills', async (req, res) => {
+// --- Protected routes (нужен токен!) ---
+app.post('/api/skills', authMiddleware, async (req, res) => {
   try {
     const { title, desc, category } = req.body;
     if (!title || !desc || !category) {
@@ -79,8 +75,7 @@ app.post('/api/skills', async (req, res) => {
   }
 });
 
-// PUT /api/skills/:id
-app.put('/api/skills/:id', async (req, res) => {
+app.put('/api/skills/:id', authMiddleware, async (req, res) => {
   try {
     const { title, desc, category } = req.body;
     const skill = await Skill.findById(req.params.id);
@@ -95,8 +90,7 @@ app.put('/api/skills/:id', async (req, res) => {
   }
 });
 
-// DELETE /api/skills/:id
-app.delete('/api/skills/:id', async (req, res) => {
+app.delete('/api/skills/:id', authMiddleware, async (req, res) => {
   try {
     const skill = await Skill.findByIdAndDelete(req.params.id);
     if (!skill) return res.status(404).json({ error: 'Навык не найден' });
@@ -106,7 +100,6 @@ app.delete('/api/skills/:id', async (req, res) => {
   }
 });
 
-// --- Запуск сервера ---
 const PORT = 3001;
 app.listen(PORT, () => {
   console.log(`🚀 Сервер запущен на http://localhost:${PORT}`);
